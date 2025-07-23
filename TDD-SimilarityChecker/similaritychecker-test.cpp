@@ -3,52 +3,32 @@
 #include <string>
 using std::string;
 
+class LenghFixture : public testing::Test {
+public:
+	void doCheck(int expected, const string& input1, const string& input2)
+	{
+		int actual = lchecker.checkSimilarity(input1, input2);
+		EXPECT_EQ(expected, actual);
+	}
+	LengthChecker lchecker;
+};
+
 TEST(TC, TC1) {
 	EXPECT_EQ(1, 1);
 }
 
-TEST(Lengh, TC1) {
-	LengthChecker lchecker;
-
-	string input1 = "ABCDE";
-	string input2 = "ABCDE";
-	int expected = 60;
-	int actual = lchecker.checkSimilarity(input1, input2);
-	EXPECT_EQ(expected, actual);
+TEST_F(LenghFixture, TC1) {
+	doCheck(60, "ABCDE", "ABCDE");
 }
-TEST(Lengh, TC2) {
-	LengthChecker lchecker;
-
-	string input1 = "A";
-	string input2 = "BB";
-	int expected = 0;
-	int actual = lchecker.checkSimilarity(input1, input2);
-	EXPECT_EQ(expected, actual);
+TEST_F(LenghFixture, TC2) {
+	doCheck(0, "A", "BB");
 }
-TEST(Lengh, TC3) {
-	LengthChecker lchecker;
-
-	string input1 = "AAABB";
-	string input2 = "BAA";
-	int expected = 20;
-	int actual = lchecker.checkSimilarity(input1, input2);
-	EXPECT_EQ(expected, actual);
+TEST_F(LenghFixture, TC3) {
+	doCheck(20, "AAABB", "BAA");
 }
-TEST(Lengh, TC4) {
-	LengthChecker lchecker;
-
-	string input1 = "AA";
-	string input2 = "AAE";
-	int expected = 30;
-	int actual = lchecker.checkSimilarity(input1, input2);
-	EXPECT_EQ(expected, actual);
+TEST_F(LenghFixture, TC4) {
+	doCheck(30, "AA", "AAE");
 }
-TEST(Lengh, TC5) {
-	LengthChecker lchecker;
-
-	string input1 = "AA";
-	string input2 = "AAAAAAAAAAAAAAA";
-	int expected = 0;
-	int actual = lchecker.checkSimilarity(input1, input2);
-	EXPECT_EQ(expected, actual);
+TEST_F(LenghFixture, TC5) {
+	doCheck(0, "AA", "AAAAAAAAAAAAAAA");
 }
